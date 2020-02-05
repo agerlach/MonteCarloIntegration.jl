@@ -134,17 +134,17 @@ function vegas(func,
             iter % 100 == 0 && println("Iteration $iter, abs(sd/Itot) = $(abs(sd/Itot))")
         end
 
-        if abs(sd/Itot) < rtol && abs(sd) < atol
-            println("Converged in $nevals evaluations")
-            break
-        end
+        # if abs(sd/Itot) < rtol && abs(sd) < atol
+        #     println("Converged in $nevals evaluations")
+        #     break
+        # end
 
         iter += 1
         # M += Minc
 
     end
     χ² = sum(((integrals .- Itot).^2) ./ sigma_squares)
-    @show nevals
+    # @show nevals
 
 
     Itot, sd, χ²/(iter-1)
@@ -160,7 +160,6 @@ function evaluate_at_samples(f, pts, bpts, M, N, grid, batch)
     # Get all fevals in one shot
     if batch
         fevals = f(pts)
-        @assert length(fevals) == M 
     end
 
     for i = 1:M
